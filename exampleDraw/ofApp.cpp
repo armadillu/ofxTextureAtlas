@@ -82,7 +82,8 @@ void ofApp::draw(){
 
 void ofApp::keyPressed(int key){
 
-	debug ^= true;
+	if(key=='f') ofToggleFullscreen();
+	else debug ^= true;
 }
 
 void ofApp::mouseScrolled( float x, float y ){
