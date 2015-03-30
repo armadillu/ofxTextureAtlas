@@ -3,6 +3,7 @@
 This will allow you to draw lots of different images on screen with a minimal number of texture binds. First, you must create the atlases. Supply a list of images you want to be able to draw later, and create atlases for them. You can specify the atlas size, the max image size, interal format (with alpha, etc), and if you want mipmaps or not.
 
 ![cats atlas](https://farm9.staticflickr.com/8748/16957624266_fdfddb6df2_z_d.jpg)
+
 See [original image](https://farm9.staticflickr.com/8748/16957624266_1b86360192_o_d.jpg).
 
 The addon accepts any image aspect ratio, so images can be all of different aspect ratios on the same atlas (ie not only sprite sheets). It does rectangle packing to maximize the atlas space.
