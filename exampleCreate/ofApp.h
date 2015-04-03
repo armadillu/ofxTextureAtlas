@@ -29,12 +29,6 @@ public:
 
 	// APP SETUP ////////////////////////////////////////////
 
-	ofRectangle *packer;
-
-	vector<ofFbo> fbos;
-	vector<ofRectangle>  rectangles;
-	vector< vector<ofRectangle> > rectsPerFbo;
-
 	TextureAtlasCreator atlasCreator;
 
 	bool debug;

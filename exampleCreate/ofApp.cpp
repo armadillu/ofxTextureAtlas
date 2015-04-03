@@ -41,8 +41,7 @@ void ofApp::setup(){
 }
 
 void ofApp::onAtlasCreationFinished(bool & arg){
-
-	//once atlases are created, save them to disk, so taht we can load them next time
+	//once atlases are created, save them to disk, so that we can load them next time
 	//without having to recreate them
 	atlasCreator.saveToDisk("textureCache", "png"); //save in a folder named "textureCache", in png format
 }

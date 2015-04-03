@@ -105,9 +105,9 @@ void TextureAtlasCreator::createAtlases(vector<string> fileList_,
 		state = CREATING;
 		currentFile = 0;
 
-		ofLogNotice("TextureAtlasCreator") << "Starting Atlases for " << fileList.size() << " images" <<
-		" in FBOs of " << fboSize << " x " << fboSize << "\nand resizing images to a max size of" <<
-		maxItemSideSize << " and padding of " << padding << "px.";
+		ofLogNotice("TextureAtlasCreator") << "Starting Atlases for " << fileList.size() <<
+		" images in FBOs of " << fboSize << " x " << fboSize << "\nand resizing images to a max size of " <<
+		maxItemSideSize << " and padding of " << padding << " px.";
 
 		currentAtlas = new TextureAtlas();
 		currentAtlas->setup(fboSize, padding, internalFormat);
