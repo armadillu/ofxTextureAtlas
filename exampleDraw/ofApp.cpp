@@ -1,5 +1,5 @@
 #include "ofApp.h"
-
+#include "ofxTimeMeasurements.h"
 
 void ofApp::setup(){
 
@@ -8,6 +8,7 @@ void ofApp::setup(){
 	ofEnableAlphaBlending();
 	ofBackground(22);
 
+	TIME_SAMPLE_ENABLE();
 	scale = scaleTarget = 1.0;
 
 	// LOAD ATLAS /////////////////////////////////////////////////
@@ -39,6 +40,7 @@ void ofApp::onAtlasesLoaded(bool &){
 void ofApp::update(){
 	float dt = 1./60.;
 	scale = ofLerp(scale, scaleTarget, 0.15);
+	
 }
 
 
@@ -52,9 +54,10 @@ void ofApp::draw(){
 
 		//atlasManager.drawTexture("images/cats/00000247_027.jpg", ofRectangle(ofGetMouseX(), ofGetMouseY(), 100, 100));
 
-		float s = 250 * scale;
-		float offsetX = 0;
-		float offsetY = 0;
+		float s = 400 * scale;
+		float padding = 10 * scale;
+		float offsetX = padding;
+		float offsetY = padding;
 		atlasManager.beginBatchDraw();
 
 		//i want to draw 2500 tiles, my file list only has N, so lets repeat
@@ -65,10 +68,10 @@ void ofApp::draw(){
 				TextureAtlasDrawer::TextureDimensions td = atlasManager.getTextureDimensions(file);
 				ofRectangle r = ofRectangle(offsetX , offsetY, s * td.aspectRatio, s );
 				atlasManager.drawTextureInBatch(file, r);
-				offsetX += s * td.aspectRatio;
+				offsetX += s * td.aspectRatio + padding;
 				if(offsetX > ofGetWidth()){
 					offsetX = 0;
-					offsetY += s;
+					offsetY += s + padding;
 				}
 			}
 		}
@@ -77,6 +80,7 @@ void ofApp::draw(){
 		int numCats = atlasManager.endBatchDraw(debug); //draws! returns num tiles drawn
 
 		ofDrawBitmapStringHighlight("numCats: " + ofToString(numCats), 30, 50);
+        
 	}
 }
 

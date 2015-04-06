@@ -22,7 +22,7 @@ void ofApp::setup(){
 		fileList.push_back(d.getPath(i));
 	}
 
-	fileList.resize(500); //lets limit the file list to 500
+	//fileList.resize(500); //lets limit the file list to 500
 
 
 	// CREATE ATLAS (+ callback to save) //////////////////////////
@@ -30,9 +30,9 @@ void ofApp::setup(){
 	//create as many atlases as required to fit all those images in atlases of 4096 x 4096
 	//each image being 256 at the most.
 	atlasCreator.createAtlases(	fileList,
-							   	4096, 	//fbo/atlas size
-							   	GL_RGBA, //internal format
-							   	256, //maxItemSideSize
+							   	4096 * 2, 	//fbo/atlas size
+							   	GL_RGB, //internal format
+							   	400, //maxItemSideSize
 								2.0,	//padding
 							    true, //mipmaps
 							   	-0.9 //mipmap bias
