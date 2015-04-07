@@ -5,8 +5,8 @@
 #include "TextureAtlasDrawer.h"
 #include "ofxRemoteUIServer.h"
 
-//#define SLANT 	(ofMap(ofGetMouseX() / float(ofGetWidth()), 0, 1, 0, .4, true))
-#define SLANT 	0.156 /*72º*/
+#define SLANT 	(ofMap(ofGetMouseX() / float(ofGetWidth()), 0, 1, 0, 1, true))
+//#define SLANT 	0.156 /*72º*/
 
 class ofApp : public ofBaseApp{
 
