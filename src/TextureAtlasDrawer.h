@@ -26,28 +26,21 @@ public:
 		float aspectRatio; //  w/h
 	};
 
+	struct Quad{
+		ofVec3f tl, tr, br, bl;
+	};
+
+	struct TexQuad{
+		Quad verts;
+		Quad texCoords;
+	};
+
 	TextureAtlasDrawer();
 
 	void beginBatchDraw();
 
-	void drawTextureInBatch(const string& filePath,
-						  const ofRectangle& where);
-
-	void drawTextureInBatch(const string& filePath,
-						  const ofVec3f & topLeft,
-						  const ofVec3f & topRight,
-						  const ofVec3f & bottomRight,
-						  const ofVec3f & bottomLeft);
-
-	void drawTextureInBatch(const string& filePath,
-						  const ofVec3f & topLeft,
-						  const ofVec3f & topRight,
-						  const ofVec3f & bottomRight,
-						  const ofVec3f & bottomLeft,
-							float tcx0, //tex coord x
-							float tcy1, //tex coord y
-							float tcxWidth, //tex coord width
-							float tcxHeight); //tex coord height
+	void drawTextureInBatch(const string& filePath, const ofRectangle& where);
+	void drawTextureInBatch(const string& filePath, const TexQuad& quad);
 
 	int endBatchDraw(bool debug = false); //returns the # of tiles drawn
 
@@ -61,6 +54,8 @@ protected:
 	void addContent(TextureAtlas* atlas);
 
 	void addToMesh(ofMesh & mesh, const ofRectangle & where, const ofRectangle & texCoords);
+
+	void addToMesh(ofMesh & mesh, const TexQuad& quad, const ofRectangle & texCoords);
 
 
 	struct TextureInfo{
