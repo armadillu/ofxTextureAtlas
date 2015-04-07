@@ -118,6 +118,36 @@ void TextureAtlasDrawer::addToMesh(ofMesh & mesh, const ofRectangle & where, con
 	mesh.addIndex(num + 2);
 }
 
+void TextureAtlasDrawer::addToMesh(ofMesh & mesh, const TexQuad& quad, const ofRectangle & texCoords){
+
+	ofVec2f tc00 = texCoords.getTopLeft();
+	ofVec2f tc10 = texCoords.getTopRight();
+	ofVec2f tc11 = texCoords.getBottomRight();
+	ofVec2f tc01 = texCoords.getBottomLeft();
+
+	int num = mesh.getVertices().size();
+	mesh.addVertex(quad.verts.tl);
+	mesh.addTexCoord(tc00 + (tc10 - tc00) * quad.texCoords.tl);
+
+	mesh.addVertex(quad.verts.tr);
+	mesh.addTexCoord(tc00 + (tc10 - tc00) * quad.texCoords.tr);
+
+	mesh.addVertex(quad.verts.br);
+	mesh.addTexCoord(tc01 + (tc11 - tc01) * quad.texCoords.br);
+
+	mesh.addVertex(quad.verts.bl);
+	mesh.addTexCoord(tc01 + (tc11 - tc01) * quad.texCoords.bl);
+
+	mesh.addIndex(num + 0); //tri 1
+	mesh.addIndex(num + 1);
+	mesh.addIndex(num + 2);
+
+	mesh.addIndex(num + 0); //tri 2
+	mesh.addIndex(num + 3);
+	mesh.addIndex(num + 2);
+}
+
+
 
 void TextureAtlasDrawer::beginBatchDraw(){
 	currentBatch.clear();
@@ -149,8 +179,7 @@ int TextureAtlasDrawer::endBatchDraw(bool debug){
 }
 
 
-void TextureAtlasDrawer::drawTextureInBatch(const string& filePath,
-											const ofRectangle& where){
+void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const ofRectangle& where){
 
 	TextureInfo & ti = textures[filePath];
 	TextureAtlas* atlas = ti.atlas;
@@ -163,9 +192,23 @@ void TextureAtlasDrawer::drawTextureInBatch(const string& filePath,
 
 	ofMesh & mesh = currentBatch[atlas];
 	addToMesh(mesh, where, ti.crop);
-
 }
 
 
+
+void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQuad& quad){
+
+	TextureInfo & ti = textures[filePath];
+	TextureAtlas* atlas = ti.atlas;
+
+	map<TextureAtlas*, ofMesh>::iterator it = currentBatch.find(atlas);
+	if(it == currentBatch.end()){
+		currentBatch[atlas] = ofMesh();
+		currentBatch[atlas].setMode(OF_PRIMITIVE_TRIANGLES);
+	}
+
+	ofMesh & mesh = currentBatch[atlas];
+	addToMesh(mesh, quad, ti.crop);
+}
 
 
