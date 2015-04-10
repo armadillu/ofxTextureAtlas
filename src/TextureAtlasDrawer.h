@@ -41,6 +41,7 @@ public:
 
 	void drawTextureInBatch(const string& filePath, const ofRectangle& where);
 	void drawTextureInBatch(const string& filePath, const TexQuad& quad);
+	void drawTextureInBatch(const string& filePath, const TexQuad& quad, const ofFloatColor& c);
 
 	int endBatchDraw(bool debug = false); //returns the # of tiles drawn
 

@@ -211,4 +211,24 @@ void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQua
 	addToMesh(mesh, quad, ti.crop);
 }
 
+void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQuad& quad, const ofFloatColor & col){
+
+	TextureInfo & ti = textures[filePath];
+	TextureAtlas* atlas = ti.atlas;
+
+	map<TextureAtlas*, ofMesh>::iterator it = currentBatch.find(atlas);
+	if(it == currentBatch.end()){
+		currentBatch[atlas] = ofMesh();
+		currentBatch[atlas].setMode(OF_PRIMITIVE_TRIANGLES);
+	}
+
+	ofMesh & mesh = currentBatch[atlas];
+	addToMesh(mesh, quad, ti.crop);
+
+	mesh.addColor(col);
+	mesh.addColor(col);
+	mesh.addColor(col);
+	mesh.addColor(col);
+}
+
 
