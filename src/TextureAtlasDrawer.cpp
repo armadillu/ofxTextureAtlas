@@ -90,6 +90,7 @@ TextureAtlasDrawer::getTextureDimensions(const string& filePath){
 	if(it != textures.end()){
 		return it->second.dim;
 	}
+	ofLogError("TextureAtlasDrawer") << "No texture exists at that path?";
 	return ti;
 }
 
