@@ -165,14 +165,18 @@ int TextureAtlasDrawer::endBatchDraw(bool debug){
 	//walk through all atlases involved in this batch, draw its mesh
 	int mc = 0;
 	while(it != currentBatch.end()){
-		it->first->getFbo().getTexture().bind();
-		if(debug){
-			ofSetColor(debugColors[mc%debugColors.size()]);
-			mc++;
+		if(it->first){
+			it->first->getFbo().getTexture().bind();
+			if(debug){
+				ofSetColor(debugColors[mc%debugColors.size()]);
+				mc++;
+			}
+			it->second.draw();
+			c += it->second.getVertices().size()/4;
+			it->first->getFbo().getTexture().unbind();
+		}else{
+			ofLogError("TextureAtlasDrawer") << "NULL Atlas?";
 		}
-		it->second.draw();
-		c += it->second.getVertices().size()/4;
-		it->first->getFbo().getTexture().unbind();
 		++it;
 	}
 	batching = false;

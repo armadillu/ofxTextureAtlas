@@ -186,11 +186,9 @@ void TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 				ofLogError("TextureAtlasCreator") << "Failed to load Atlas! - " << xmlName;
 			}
 		}
-		//return true;
 	}else{
 		ofLogError("TextureAtlasCreator") << "I am busy now, cant do that!";
 	}
-	//return false;
 }
 
 

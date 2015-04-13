@@ -38,7 +38,7 @@ void TextureAtlas::setup(int rectSize, float padding, GLint internalFormat_){
 
 	atlasFbo.allocate(fboSettings);
 	atlasFbo.begin();
-	ofClear(0,0,0,0);
+	ofClear(0,0,0, (internalFormat_ == GL_RGBA ? 0 : 255));
 	atlasFbo.end();
 
 	xmlDataOK = imgDataOK = false;
@@ -66,13 +66,23 @@ bool TextureAtlas::addTexture(string file, float maxSize){
 
 		if(rect.width > rect.height){
 			float scaleDown = maxSize / rect.width;
-			rect.width = maxSize;
-			rect.height *= scaleDown;
+			if (maxSize < rect.width){ //dont upscale
+				rect.width = maxSize;
+				rect.height *= scaleDown;
+			}else{
+				ofLogNotice("TextureAtlas") << "not upscaling " << file;
+			}
 		}else{
 			float scaleDown = maxSize / rect.height;
-			rect.height = maxSize;
-			rect.width *= scaleDown;
+			if(maxSize < rect.height){
+				rect.height = maxSize;
+				rect.width *= scaleDown;
+			}else{
+				ofLogNotice("TextureAtlas") << "not upscaling " << file;
+			}
 		}
+		rect.width = ceil(rect.width);
+		rect.height = ceil(rect.height);
 
 		bool didFit = packer->pack(rect);
 
