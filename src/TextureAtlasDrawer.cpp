@@ -160,7 +160,6 @@ int TextureAtlasDrawer::endBatchDraw(bool debug){
 
 	map<TextureAtlas*, ofMesh>::iterator it = currentBatch.begin();
 
-
 	int c = 0;
 	//walk through all atlases involved in this batch, draw its mesh
 	int mc = 0;
