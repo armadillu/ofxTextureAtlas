@@ -22,6 +22,8 @@ const string atlasXmlTextureList = "TextureList";
 
 class TextureAtlas: public ofThread{
 
+	friend class TextureAtlasCreator;
+
 public:
 
 	TextureAtlas();

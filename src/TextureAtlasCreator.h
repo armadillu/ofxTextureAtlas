@@ -61,9 +61,9 @@ public:
 	void onAtlasLoaded(bool & ok);
 
 	void update(ofEventArgs&); //dont call this
+	string getMemStats(); //call only when loaded / created
 
 private:
-
 
 	enum State{
 		IDLE = 0,
@@ -90,6 +90,7 @@ private:
 	vector<string> fileList;
 	GLint internalFormat;
 
+	string bytesToHumanReadable(long long bytes, int decimalPrecision);
 };
 
 #endif /* defined(__BaseApp__TextureAtlasCreator__) */

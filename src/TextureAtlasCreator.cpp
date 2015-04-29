@@ -118,6 +118,44 @@ void TextureAtlasCreator::createAtlases(vector<string> fileList_,
 	}
 }
 
+string TextureAtlasCreator::getMemStats(){
+
+	uint64_t pixelsInGPU = 0;
+
+	for(int i = 0; i < atlases.size(); i++){
+		ofFbo & fbo = atlases[i]->getFbo();
+		int bpp = 3;
+		switch (fbo.getTextureReference().getTextureData().glTypeInternal) {
+			case GL_RGBA: bpp = 4; break;
+			case GL_RGB: bpp = 3; break;
+			case GL_LUMINANCE: bpp = 1; break;
+			default: ofLogError("TextureAtlasCreator") << "unknown glTypeInternal when gathering stats!";break;
+		}
+		pixelsInGPU += fbo.getWidth() * fbo.getHeight() * bpp * float(atlases[i]->loadWithMipmaps ? 1.333f : 1.0f);
+	}
+	string msg = "Used VRAM: " + bytesToHumanReadable(pixelsInGPU,2);
+	return msg;
+}
+
+
+string TextureAtlasCreator::bytesToHumanReadable(long long bytes, int decimalPrecision){
+	string ret;
+	if (bytes < 1024 ){ //if in bytes range
+		ret = ofToString(bytes) + " bytes";
+	}else{
+		if (bytes < 1024 * 1024){ //if in kb range
+			ret = ofToString(bytes / float(1024), decimalPrecision) + " KB";
+		}else{
+			if (bytes < (1024 * 1024 * 1024)){ //if in Mb range
+				ret = ofToString(bytes / float(1024 * 1024), decimalPrecision) + " MB";
+			}else{
+				ret = ofToString(bytes / float(1024 * 1024 * 1024), decimalPrecision) + " GB";
+			}
+		}
+	}
+	return ret;
+}
+
 
 void TextureAtlasCreator::update(ofEventArgs&){
 
@@ -134,6 +172,7 @@ void TextureAtlasCreator::update(ofEventArgs&){
 				currentAtlas->setMipMapBias(mipmapBias);
 			}
 			currentAtlas = NULL;
+			ofLogWarning("TextureAtlasCreator") << getMemStats();
 			ofRemoveListener(ofEvents().update, this, &TextureAtlasCreator::update);
 
 		}else{
@@ -203,6 +242,7 @@ void TextureAtlasCreator::onAtlasLoaded(bool & ok){
 			for(int i = 0; i < atlases.size(); i++){
 				ofRemoveListener(atlases[i]->eventAtlasLoaded, this, &TextureAtlasCreator::onAtlasLoaded);
 			}
+			ofLogWarning("TextureAtlasCreator") << getMemStats();
 		}
 	}else{
 		ofLogError("TextureAtlasCreator") << "Hmmm not busy but getting loaded events?";
