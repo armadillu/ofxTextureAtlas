@@ -14,6 +14,7 @@ TextureAtlasCreator::TextureAtlasCreator(){
 	state = IDLE;
 	currentAtlas = NULL;
 	loadingAtlas = 0;
+	numImagesPerUpdate = 2;
 }
 
 
@@ -161,36 +162,42 @@ void TextureAtlasCreator::update(ofEventArgs&){
 
 	if(state == CREATING){
 
-		if(currentFile >= fileList.size()){
+		int c = 0;
+		bool done = false;
+		
+		while( !done && c < numImagesPerUpdate ){
+			if(currentFile >= fileList.size()){
 
-			bool ok = true;
-			state = IDLE;
-			ofNotifyEvent(eventAtlasCreationFinished, ok, this);
-			ofLogNotice("TextureAtlasCreator") << "Done!";
-			if(makeMipMaps){
-				currentAtlas->generateMipMap();
-				currentAtlas->setMipMapBias(mipmapBias);
-			}
-			currentAtlas = NULL;
-			ofLogWarning("TextureAtlasCreator") << getMemStats();
-			ofRemoveListener(ofEvents().update, this, &TextureAtlasCreator::update);
-
-		}else{
-
-			string file = fileList[currentFile];
-			bool didFit = currentAtlas->addTexture(file, maxItemSideSize);
-			if(!didFit){
+				bool ok = true;
+				state = IDLE;
+				ofNotifyEvent(eventAtlasCreationFinished, ok, this);
+				ofLogNotice("TextureAtlasCreator") << "Done!";
 				if(makeMipMaps){
 					currentAtlas->generateMipMap();
 					currentAtlas->setMipMapBias(mipmapBias);
 				}
-				currentAtlas = new TextureAtlas();
-				currentAtlas->setup(fboSize, padding, internalFormat );
-				atlases.push_back(currentAtlas);
-				currentFile--;
-				ofLogNotice("TextureAtlasCreator") << "Creating a new TextureAtlas (" << atlases.size() << ")";
+				currentAtlas = NULL;
+				ofLogWarning("TextureAtlasCreator") << getMemStats();
+				ofRemoveListener(ofEvents().update, this, &TextureAtlasCreator::update);
+				done = true;
+			}else{
+
+				string file = fileList[currentFile];
+				bool didFit = currentAtlas->addTexture(file, maxItemSideSize);
+				if(!didFit){
+					if(makeMipMaps){
+						currentAtlas->generateMipMap();
+						currentAtlas->setMipMapBias(mipmapBias);
+					}
+					currentAtlas = new TextureAtlas();
+					currentAtlas->setup(fboSize, padding, internalFormat );
+					atlases.push_back(currentAtlas);
+					currentFile--;
+					ofLogNotice("TextureAtlasCreator") << "Creating a new TextureAtlas (" << atlases.size() << ")";
+				}
+				currentFile++;
 			}
-			currentFile++;
+			c++;
 		}
 	}
 }

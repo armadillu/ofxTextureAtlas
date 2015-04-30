@@ -41,6 +41,9 @@ public:
 
 	int getNumAtlases(){return atlases.size();};
 	TextureAtlas* getAtlasAtIndex(int index){return atlases[index];}
+	
+	//when creating an atlas, how many to add per atlas per update call
+	void setNumImagesPerUpdate(int n){numImagesPerUpdate = n;}
 
 
 	bool isIdle(){return state == IDLE;}
@@ -76,6 +79,8 @@ private:
 	int loadingAtlas;
 	int currentFile;
 
+	int numImagesPerUpdate;
+	
 	int fboSize;
 	float maxItemSideSize;
 	float padding;
