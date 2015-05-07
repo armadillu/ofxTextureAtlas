@@ -22,7 +22,7 @@ void ofApp::setup(){
 		fileList.push_back(d.getPath(i));
 	}
 
-	//fileList.resize(500); //lets limit the file list to 500
+	fileList.resize(500); //lets limit the file list to 500
 
 
 	// CREATE ATLAS (+ callback to save) //////////////////////////
