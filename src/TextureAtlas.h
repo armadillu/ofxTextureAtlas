@@ -42,7 +42,7 @@ public:
 
 	void drawDebug(int x, int y);
 
-	bool saveToDisk(string imageFileName, string xmlFileName);
+	void saveToDisk(string imageFileName, string xmlFileName);
 
 
 	bool startLoadingFromDisk(GLint internalFormat_,

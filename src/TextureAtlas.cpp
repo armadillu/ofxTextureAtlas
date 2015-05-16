@@ -117,7 +117,7 @@ void TextureAtlas::setMipMapBias(float bias){
 	atlasFbo.getTexture().unbind();
 }
 
-bool TextureAtlas::saveToDisk(string imageFileName, string xmlFileName){
+void TextureAtlas::saveToDisk(string imageFileName, string xmlFileName){
 
 	ofLogNotice("TextureAtlas") << "Saving atlas To Disk " << imageFileName << " in atlas";
 	ofPixels p;
