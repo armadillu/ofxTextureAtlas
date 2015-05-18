@@ -35,8 +35,10 @@ public:
 		Quad texCoords;
 	};
 
+
 	TextureAtlasDrawer();
 
+	//batch drawing; call begin, drawTexInBatch N times, then call end to finally draw.
 	void beginBatchDraw();
 
 	void drawTextureInBatch(const string& filePath, const ofRectangle& where);
@@ -45,10 +47,13 @@ public:
 
 	int endBatchDraw(bool debug = false); //returns the # of tiles drawn
 
+	//to draw a single texture in place
 	void drawTexture(const string& filePath, const ofRectangle& where);
 
 	TextureDimensions getTextureDimensions(const string& filePath);
 
+	//utils
+	static Quad toQuad(ofRectangle&r);
 
 protected:
 

@@ -24,6 +24,24 @@ TextureAtlasDrawer::TextureAtlasDrawer(){
 	debugColors.push_back(ofColor::gray);
 }
 
+TextureAtlasDrawer::Quad TextureAtlasDrawer::toQuad(ofRectangle&r){
+
+	Quad q;
+	q.tl.x = r.x;
+	q.tl.y = r.y;
+
+	q.tr.x = r.x + r.width;
+	q.tr.y = r.y;
+
+	q.bl.x = r.x;
+	q.bl.y = r.y + r.height;
+
+	q.br.x = r.x + r.width;
+	q.br.y = r.y + r.height;
+
+	return q;
+}
+
 void TextureAtlasDrawer::addContent(TextureAtlas* atlas){
 
 	map<string, ofRectangle> crops = atlas->getTextureLocations();
