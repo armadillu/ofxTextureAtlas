@@ -267,6 +267,7 @@ void TextureAtlasCreator::saveToDisk(string directory, string imgFormat /*png | 
 		}
 
 		directory = ofFilePath::addTrailingSlash(directory);
+		ofDirectory::removeDirectory(directory, true); //remove all old atlases
 		ofDirectory::createDirectory(directory, true, true);
 
 		for(int i = 0; i < atlases.size(); i++){

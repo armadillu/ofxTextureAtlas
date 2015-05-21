@@ -65,6 +65,7 @@ public:
 
 	void update(ofEventArgs&); //dont call this
 	string getMemStats(); //call only when loaded / created
+	vector<string> getImageFileList(){return fileList;}
 
 private:
 
