@@ -126,12 +126,20 @@ string TextureAtlasCreator::getMemStats(){
 	for(int i = 0; i < atlases.size(); i++){
 		ofFbo & fbo = atlases[i]->getFbo();
 		int bpp = 3;
+		#if OF_VERSION_MINOR < 9
 		switch (fbo.getTextureReference().getTextureData().glTypeInternal) {
+		#else
+		switch (fbo.getTexture().getTextureData().glInternalFormat) {
+		#endif
 			case GL_RGBA: bpp = 4; break;
 			case GL_RGB: bpp = 3; break;
+			case GL_RGBA8: bpp = 4; break;
+			case GL_RGB8: bpp = 3; break;
 			case GL_LUMINANCE: bpp = 1; break;
 			default: ofLogError("TextureAtlasCreator") << "unknown glTypeInternal when gathering stats!";break;
 		}
+
+
 		pixelsInGPU += fbo.getWidth() * fbo.getHeight() * bpp * float(atlases[i]->loadWithMipmaps ? 1.333f : 1.0f);
 	}
 	string msg = "Used VRAM: " + bytesToHumanReadable(pixelsInGPU,2);
