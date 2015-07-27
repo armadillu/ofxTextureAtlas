@@ -230,15 +230,8 @@ void TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 			string xmlName = d.getPath(i);
 			string imgName = ofFilePath::removeExt(xmlName);
 			imgName += "." + imgFormat;
-
-			#if OF_VERSION_MINOR >= 9
-			string fullPath = directory + "/" + imgName; //of v09 ofFilePath::removeExt() also removes all the path, leaves you with the basename
-			#else
-			string fullPath = imgName;
-			#endif
-
 			ofAddListener(atlas->eventAtlasLoaded, this, &TextureAtlasCreator::onAtlasLoaded);
-			bool loadOK = atlas->startLoadingFromDisk(internalFormat, fullPath, xmlName, generateMipMaps, mipmapBias);
+			bool loadOK = atlas->startLoadingFromDisk(internalFormat, imgName, xmlName, generateMipMaps, mipmapBias);
 
 			if (loadOK){
 				ofLogNotice("TextureAtlasCreator") << "loaded Atlas OK - " << xmlName;
