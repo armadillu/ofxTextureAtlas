@@ -212,7 +212,7 @@ void TextureAtlasCreator::update(ofEventArgs&){
 }
 
 
-void TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
+bool TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 											  string directory,
 											  string imgFormat /*png | jpg*/,
 											  bool generateMipMaps,
@@ -220,6 +220,14 @@ void TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 
 	if(state == IDLE){
 		ofLogNotice("TextureAtlasCreator") << "Load Atlases From Disk - " << directory;
+		bool exists = ofDirectory::doesDirectoryExist(directory);
+		bool empty = true;
+		if (exists) empty = ofDirectory::isDirectoryEmpty(directory);
+
+		if (empty | !exists){
+			ofLogError("TextureAtlasCreator") << "can't find the directory (or its empty) to load from: " << directory;
+			return false;
+		}
 		state = LOADING;
 		ofDirectory d;
 		d.allowExt("xml");
@@ -242,7 +250,9 @@ void TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 		}
 	}else{
 		ofLogError("TextureAtlasCreator") << "I am busy now, cant do that!";
+		return false;
 	}
+	return true;
 }
 
 

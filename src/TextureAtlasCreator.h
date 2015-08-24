@@ -31,7 +31,7 @@ public:
 					   );
 
 	void saveToDisk(string directory, string imgFormat /*png | jpg*/);
-	void loadAtlasesFromDisk(GLint internalFormat,
+	bool loadAtlasesFromDisk(GLint internalFormat,
 							 string directory,
 							 string imgFormat, /*png | jpg*/
 							 bool generateMipMaps,
