@@ -19,21 +19,24 @@ const string atlasXmlNumTex = "NumTextures";
 const string atlasXmlInternalFormat = "internalFormat";
 const string atlasXmlTextureList = "TextureList";
 
-
-class TextureAtlas: public ofThread{
+class TextureAtlas : public ofThread {
 
 	friend class TextureAtlasCreator;
 
-public:
+  public:
+	struct AtlasLoadEventInfo {
+		bool ok;
+		TextureAtlas *atlas;
+	};
 
 	TextureAtlas();
 
 	void setup(int fboSize, float padding, GLint internalFormat);
-	ofFbo & getFbo(){return atlasFbo;}
+	ofFbo &getFbo() { return atlasFbo; }
 
 	/*return true if fits*/
-	bool addTexture(string file, //tex file
-					float maxSize //biggest side, how big in atlas
+	bool addTexture(string file, // tex file
+					float maxSize // biggest side, how big in atlas
 					);
 
 	void generateMipMap();
@@ -44,27 +47,22 @@ public:
 
 	void saveToDisk(string imageFileName, string xmlFileName);
 
+	bool startLoadingFromDisk(GLint internalFormat_, string imageFileName, string xmlFileName, bool mipmaps,
+							  float mipmapBias);
 
-	bool startLoadingFromDisk(GLint internalFormat_,
-							  string imageFileName,
-							  string xmlFileName,
-							  bool mipmaps,
-							  float mipmapBias
-							  );
+	ofEvent<TextureAtlas::AtlasLoadEventInfo> eventAtlasLoaded; // listen to this b4 startLoadingFromDisk()
+	// and you will be notified when ready. You can query progress by calling getLoadXmlProgress()
+	// once the xml is loaded, the texture atlas image will be loaded from the main thread,
+	// and it will block the main thread for a few seconds! So only do this while on a loading
+	// screen or similar
 
-	ofEvent<bool> eventAtlasLoaded; //listen to this b4 startLoadingFromDisk()
-	//and you will be notified when ready. You can query progress by calling getLoadXmlProgress()
-	//once the xml is loaded, the texture atlas image will be loaded from the main thread,
-	//and it will block the main thread for a few seconds! So only do this while on a loading
-	//screen or similar
+	void update(ofEventArgs &); // auto update
+	float getLoadXmlProgress() { return loadXmlProgress; }
 
-	void update(ofEventArgs&); //auto update
-	float getLoadXmlProgress(){ return loadXmlProgress; }
+	const map<string, ofRectangle> &getTextureLocations() { return textureCrops; }
+	const vector<string> getFiles();
 
-	const map<string, ofRectangle>& getTextureLocations(){return textureCrops;}
-
-private:
-
+  private:
 	map<string, ofRectangle> textureCrops;
 	ofRectanglePacker *packer;
 	ofFbo atlasFbo;
@@ -74,7 +72,7 @@ private:
 
 	void threadedFunction();
 
-	//load data, for the thread to access
+	// load data, for the thread to access
 	bool loadingAtlas;
 	bool xmlDataOK;
 	bool imgDataOK;

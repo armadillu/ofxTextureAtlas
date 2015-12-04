@@ -61,7 +61,7 @@ public:
 	ofEvent<bool> eventAllAtlasesLoaded;
 
 	//for each individual atlas
-	void onAtlasLoaded(bool & ok);
+	void onAtlasLoaded(TextureAtlas::AtlasLoadEventInfo & info);
 
 	void update(ofEventArgs&); //dont call this
 	string getMemStats(); //call only when loaded / created

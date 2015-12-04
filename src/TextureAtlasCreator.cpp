@@ -233,7 +233,7 @@ bool TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 		d.allowExt("xml");
 		d.listDir(directory);
 		loadingAtlas = d.numFiles();
-		for(int i = 0; i < d.numFiles(); i++){
+		for(int i = 0; i < loadingAtlas; i++){
 			TextureAtlas * atlas = new TextureAtlas();
 			string xmlName = d.getPath(i);
 			string imgName = ofFilePath::removeExt(xmlName);
@@ -256,9 +256,11 @@ bool TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 }
 
 
-void TextureAtlasCreator::onAtlasLoaded(bool & ok){
+	void TextureAtlasCreator::onAtlasLoaded(TextureAtlas::AtlasLoadEventInfo & info){
 
 	if(state == LOADING){
+		vector<string> files = info.atlas->getFiles();
+		fileList.insert(fileList.end(),files.begin(), files.end());
 		loadingAtlas--;
 		if(loadingAtlas == 0){
 			state = IDLE;

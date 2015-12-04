@@ -275,9 +275,22 @@ void TextureAtlas::update(ofEventArgs&){
 			ofLogError()<< "xml data cant be loaded!" << xmlFileName;
 		}
 
-		bool arg = imgDataOK && xmlDataOK;
+		AtlasLoadEventInfo arg;
+		arg.ok = imgDataOK && xmlDataOK;
+		arg.atlas = this;
 		ofNotifyEvent(eventAtlasLoaded, arg, this);
 	}
+}
+
+const vector<string> TextureAtlas::getFiles(){
+
+	vector<string> files;
+	map<string, ofRectangle>::iterator it = textureCrops.begin();
+	while(it != textureCrops.end()){
+		files.push_back(it->first);
+		++it;
+	}
+	return files;
 }
 
 void TextureAtlas::threadedFunction(){
