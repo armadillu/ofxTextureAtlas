@@ -1,4 +1,6 @@
-#What is this
+# ofxTextureAtlas : What is this
+
+[![Build Status](https://travis-ci.org/armadillu/ofxTextureAtlas.svg?branch=master)](https://travis-ci.org/armadillu/ofxTextureAtlas)
 
 This will allow you to draw lots of different images on screen with a minimal number of texture binds. First, you must create the atlases. Supply a list of images you want to be able to draw later, and create atlases for them. You can specify the atlas size, the max image size, interal format (with alpha, etc), and if you want mipmaps or not.
 

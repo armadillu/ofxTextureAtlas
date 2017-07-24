@@ -1,21 +1,11 @@
-#include "ofMain.h"
 #include "ofApp.h"
 
-//========================================================================
-int main( ){
+int main(){
+	// this kicks off the running of my app
+	// can be OF_WINDOW or OF_FULLSCREEN
+	// pass in width and height too:
 
-	//ofSetCurrentRenderer(ofGLProgrammableRenderer::TYPE);
+	ofSetupOpenGL(1024, 768, OF_WINDOW);
 
-	ofGLFWWindowSettings winSettings;
-	winSettings.numSamples = 8;
-	winSettings.width = 1027;
-	winSettings.height = 768;
-
-	shared_ptr<ofAppBaseWindow> win = ofCreateWindow(winSettings);	// sets up the opengl context!
-	((ofAppGLFWWindow*)win.get())->setMultiDisplayFullscreen(true);
-
-	// 10 x 1 screens
-	//ofSetupOpenGL(&win, w, h, OF_WINDOW /*OF_FULLSCREEN*/);	// <-------- setup the GL context
-	ofRunApp(win, shared_ptr<ofBaseApp>(new ofApp()));
-	ofRunMainLoop();
+	ofRunApp(new ofApp());
 }
