@@ -1,3 +1,6 @@
 ofxTextureAtlas
 ofxTimeMeasurements
 ofxRemoteUI
+ofxPoco
+ofxOsc
+ofxXmlSettings
