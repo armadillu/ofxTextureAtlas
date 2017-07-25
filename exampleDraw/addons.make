@@ -1,2 +1,3 @@
 ofxTextureAtlas
+ofxRectangleUtils
 ofxTimeMeasurements

@@ -1,4 +1,5 @@
 ofxTextureAtlas
+ofxRectangleUtils
 ofxTimeMeasurements
 ofxRemoteUI
 ofxPoco

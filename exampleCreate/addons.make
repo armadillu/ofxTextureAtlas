@@ -1,1 +1,2 @@
 ofxTextureAtlas
+ofxRectangleUtils
