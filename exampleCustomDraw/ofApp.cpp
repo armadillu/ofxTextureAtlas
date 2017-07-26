@@ -10,7 +10,8 @@ void ofApp::setup(){
 	ofBackground(22);
 
 	TIME_SAMPLE_ENABLE();
-	scale = scaleTarget = 1.0;
+	scale = 1.0;
+ 	scaleTarget = 0.5;
 
 	// LOAD ATLAS /////////////////////////////////////////////////
 
@@ -42,6 +43,7 @@ void ofApp::onAtlasesLoaded(bool &){
 	std::random_shuffle(filesToDraw.begin(), filesToDraw.end());
 }
 
+
 void ofApp::update(){
 	float dt = 1./60.;
 	scale = ofLerp(scale, scaleTarget, 0.15);
@@ -57,6 +59,8 @@ void ofApp::draw(){
 
 	}else{
 
+		TSGL_START("draw cats");
+
 		//atlasManager.drawTexture("images/cats/00000247_027.jpg", ofRectangle(ofGetMouseX(), ofGetMouseY(), 100, 100));
 
 		float s = 256 * scale;
@@ -67,7 +71,7 @@ void ofApp::draw(){
 		atlasManager.beginBatchDraw();
 
 		//i want to draw 2500 tiles, my file list only has N, so lets repeat
-		int nTimes = 1; ceil(2500.0f / filesToDraw.size());
+		int nTimes = ceil(2500.0f / filesToDraw.size());
 
 
 		for(int i = 0; i < nTimes; i++){
@@ -88,8 +92,10 @@ void ofApp::draw(){
 		ofSetColor(255);
 		int numCats = atlasManager.endBatchDraw(debug); //draws! returns num tiles drawn
 		ofDrawBitmapStringHighlight("numCats: " + ofToString(numCats) + "\n"
-									"slant: " + ofToString(SLANT),
+									"slant: " + ofToString(SLANT) +
+									"\nMouse scrollWheel to zoom",
 									30, 50);
+		TSGL_STOP("draw cats");
 	}
 }
 
@@ -121,9 +127,9 @@ void ofApp::keyPressed(int key){
 	else debug ^= true;
 }
 
-void ofApp::mouseScrolled( float x, float y ){
+void ofApp::mouseScrolled( int x, int y, float sx, float sy ){
 
-	scaleTarget += y * 0.02;
+	scaleTarget += sy * 0.02;
 	scaleTarget = ofClamp(scaleTarget, 0.02, 1.0);
 }
 

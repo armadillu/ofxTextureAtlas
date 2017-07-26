@@ -127,35 +127,27 @@ void TextureAtlas::saveToDisk(string imageFileName, string xmlFileName){
 	img.save(imageFileName, OF_IMAGE_QUALITY_BEST);
 
 	ofXml xml;
-	xml.addChild(atlasXmlRoot);
-	xml.setTo(atlasXmlRoot);
+	auto ptr = xml.appendChild(atlasXmlRoot);	//create 	<Atlas>
+	ptr = ptr.appendChild(atlasXmlProperties); // create	<Properties>
 
-	xml.addChild(atlasXmlProperties);
-	xml.setTo(atlasXmlProperties);
-		xml.addValue(atlasXmlSize, atlasFbo.getWidth());
-		xml.addValue(atlasXmlNumTex, textureCrops.size());
-	xml.setToParent();
+	ptr.appendChild(atlasXmlSize).set(atlasFbo.getWidth());
+	ptr.appendChild(atlasXmlNumTex).set(textureCrops.size());
 
-	xml.addChild(atlasXmlTextureList);
-	xml.setTo(atlasXmlTextureList);
+	ptr = xml.findFirst(atlasXmlRoot).appendChild(atlasXmlTextureList); //create 	<TextureList>
 
 	map<string, ofRectangle>::iterator it = textureCrops.begin();
-	int c = 0;
+
 	while(it != textureCrops.end()){
 
 		string file = it->first;
 		ofRectangle & r = it->second;
 
-		string path = "tex[" + ofToString(c) + "]";
-		xml.addValue("tex", file);
-		xml.setTo(path);
-		xml.setAttribute("x", ofToString(r.x));
-		xml.setAttribute("y", ofToString(r.y));
-		xml.setAttribute("width", ofToString(r.width));
-		xml.setAttribute("height", ofToString(r.height));
-
-		xml.setToParent();
-		c++;
+		auto ptr2 = ptr.appendChild("tex");
+		ptr2.set(file);
+		ptr2.setAttribute("x", ofToString(r.x));
+		ptr2.setAttribute("y", ofToString(r.y));
+		ptr2.setAttribute("width", ofToString(r.width));
+		ptr2.setAttribute("height", ofToString(r.height));
 		++it;
 	}
 	xml.save(xmlFileName);
@@ -201,26 +193,27 @@ bool TextureAtlas::loadXmlData(){
 	ofXml xml;
 	bool xmlOK = xml.load(xmlFileName);
 	if(xmlOK){
-		xml.setTo(atlasXmlRoot);
-		xml.setTo(atlasXmlProperties);
-		int fboSize = ofToInt(xml.getValue(atlasXmlSize));
-		int numTex = ofToInt(xml.getValue(atlasXmlNumTex));
-		xml.setToParent();
+		auto ptr = xml.findFirst(atlasXmlRoot + "/" + atlasXmlProperties);
+		int fboSize = ptr.getChild(atlasXmlSize).getIntValue();
+		int numTex = ptr.getChild(atlasXmlNumTex).getIntValue();
 
-		xml.setTo(atlasXmlTextureList);
+		ptr = xml.findFirst(atlasXmlRoot + "/" + atlasXmlTextureList);
 
 		loadXmlProgress = 0;
-		for(int i = 0; i < numTex; i++){
-			xml.setToChild(i);
-			string fileName = xml.getValue();
-			float x = ofToFloat(xml.getAttribute("x"));
-			float y = ofToFloat(xml.getAttribute("y"));
-			float width = ofToFloat(xml.getAttribute("width"));
-			float height = ofToFloat(xml.getAttribute("height"));
-			textureCrops[fileName] = ofRectangle(x, y, width, height);
-			xml.setToParent();
+
+		auto texs = ptr.getChildren("tex");
+		int i = 0;
+		for(auto & tex: texs){
+			string filename = tex.getValue();
+			auto x = tex.getAttribute("x").getIntValue();
+			auto y = tex.getAttribute("y").getIntValue();
+			auto width = tex.getAttribute("width").getIntValue();
+			auto height = tex.getAttribute("height").getIntValue();
+			textureCrops[filename] = ofRectangle(x, y, width, height);
 			loadXmlProgress = i / float(numTex - 1);
+			i++;
 		}
+
 		numTexInXml = numTex;
 		fboSizeInXml = fboSize;
 	}else{

@@ -82,16 +82,16 @@ void TextureAtlasDrawer::drawTexture(const string& filePath,
 
 	if(atlas){
 
-		mesh.addVertex(ofVec2f(where.x, where.y));
+		mesh.addVertex(ofVec3f(where.x, where.y));
 		mesh.addTexCoord(ofVec2f(texCoords.x, texCoords.y)); //vflip
 
-		mesh.addVertex(ofVec2f(where.x + where.width, where.y));
+		mesh.addVertex(ofVec3f(where.x + where.width, where.y));
 		mesh.addTexCoord(ofVec2f(texCoords.x + texCoords.width, texCoords.y)); //vflip
 
-		mesh.addVertex(ofVec2f(where.x + where.width, where.y + where.height));
+		mesh.addVertex(ofVec3f(where.x + where.width, where.y + where.height));
 		mesh.addTexCoord(ofVec2f(texCoords.x + texCoords.width, texCoords.y + texCoords.height)); //vflip
 
-		mesh.addVertex(ofVec2f(where.x , where.y + where.height));
+		mesh.addVertex(ofVec3f(where.x , where.y + where.height));
 		mesh.addTexCoord(ofVec2f(texCoords.x, texCoords.y + texCoords.height)); //vflip
 
 		ti.tex->bind();
@@ -116,16 +116,16 @@ void TextureAtlasDrawer::addToMesh(ofMesh & mesh, const ofRectangle & where, con
 
 	int num = mesh.getVertices().size();
 
-	mesh.addVertex(ofVec2f(where.x, where.y));
+	mesh.addVertex(ofVec3f(where.x, where.y));
 	mesh.addTexCoord(ofVec2f(texCoords.x, texCoords.y)); //vflip
 
-	mesh.addVertex(ofVec2f(where.x + where.width, where.y));
+	mesh.addVertex(ofVec3f(where.x + where.width, where.y));
 	mesh.addTexCoord(ofVec2f(texCoords.x + texCoords.width, texCoords.y)); //vflip
 
-	mesh.addVertex(ofVec2f(where.x + where.width, where.y + where.height));
+	mesh.addVertex(ofVec3f(where.x + where.width, where.y + where.height));
 	mesh.addTexCoord(ofVec2f(texCoords.x + texCoords.width, texCoords.y + texCoords.height)); //vflip
 
-	mesh.addVertex(ofVec2f(where.x , where.y + where.height));
+	mesh.addVertex(ofVec3f(where.x , where.y + where.height));
 	mesh.addTexCoord(ofVec2f(texCoords.x, texCoords.y + texCoords.height)); //vflip
 
 	mesh.addIndex(num + 0);

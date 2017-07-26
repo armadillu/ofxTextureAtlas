@@ -9,7 +9,8 @@ void ofApp::setup(){
 	ofBackground(22);
 
 	TIME_SAMPLE_ENABLE();
-	scale = scaleTarget = 1.0;
+	scale = 1.0;
+	scaleTarget = 0.5;
 
 	// LOAD ATLAS /////////////////////////////////////////////////
 
@@ -40,7 +41,6 @@ void ofApp::onAtlasesLoaded(bool &){
 void ofApp::update(){
 	float dt = 1./60.;
 	scale = ofLerp(scale, scaleTarget, 0.15);
-	
 }
 
 
@@ -51,6 +51,8 @@ void ofApp::draw(){
 		ofDrawBitmapStringHighlight("load Progress: " + ofToString(atlasCreator.getPercentDone() * 100,1), 30, 50);
 
 	}else{
+
+		TSGL_START("draw cats");
 
 		//atlasManager.drawTexture("images/cats/00000247_027.jpg", ofRectangle(ofGetMouseX(), ofGetMouseY(), 100, 100));
 
@@ -79,9 +81,11 @@ void ofApp::draw(){
 		ofSetColor(255);
 		int numCats = atlasManager.endBatchDraw(debug); //draws! returns num tiles drawn
 
-		ofDrawBitmapStringHighlight("numCats: " + ofToString(numCats), 30, 50);
-        
+		ofDrawBitmapStringHighlight("numCats: " + ofToString(numCats) + "\nMouse scrollWheel to zoom", 30, 50);
+
+		TSGL_STOP("draw cats");
 	}
+
 }
 
 void ofApp::keyPressed(int key){
@@ -90,9 +94,9 @@ void ofApp::keyPressed(int key){
 	else debug ^= true;
 }
 
-void ofApp::mouseScrolled( float x, float y ){
+void ofApp::mouseScrolled( int x, int y, float scrollX, float scrollY ){
 
-	scaleTarget += y * 0.02;
+	scaleTarget += scrollY * 0.02;
 	scaleTarget = ofClamp(scaleTarget, 0.02, 1.0);
 }
 
