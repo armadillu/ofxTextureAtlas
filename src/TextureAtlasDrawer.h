@@ -41,16 +41,16 @@ public:
 	//batch drawing; call begin, drawTexInBatch N times, then call end to finally draw.
 	void beginBatchDraw();
 
-	void drawTextureInBatch(const string& filePath, const ofRectangle& where);
-	void drawTextureInBatch(const string& filePath, const TexQuad& quad);
-	void drawTextureInBatch(const string& filePath, const TexQuad& quad, const ofFloatColor& c);
+	void drawTextureInBatch(const std::string& filePath, const ofRectangle& where);
+	void drawTextureInBatch(const std::string& filePath, const TexQuad& quad);
+	void drawTextureInBatch(const std::string& filePath, const TexQuad& quad, const ofFloatColor& c);
 
 	int endBatchDraw(bool debug = false); //returns the # of tiles drawn
 
 	//to draw a single texture in place
-	void drawTexture(const string& filePath, const ofRectangle& where);
+	void drawTexture(const std::string& filePath, const ofRectangle& where);
 
-	TextureDimensions getTextureDimensions(const string& filePath);
+	TextureDimensions getTextureDimensions(const std::string& filePath);
 
 	//utils
 	static Quad toQuad(ofRectangle&r);
@@ -71,12 +71,12 @@ protected:
 		TextureDimensions dim;
 	};
 
-	map<string, TextureInfo> textures;
+	std::map<std::string, TextureInfo> textures;
 
 	bool batching;
-	map<TextureAtlas*, ofMesh> currentBatch;
+	std::map<TextureAtlas*, ofMesh> currentBatch;
 
-	vector<ofColor> debugColors;
+	std::vector<ofColor> debugColors;
 
 
 };

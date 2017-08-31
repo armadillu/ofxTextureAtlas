@@ -9,6 +9,8 @@
 #include "TextureAtlasCreator.h"
 #include "TextureAtlasDrawer.h"
 
+using namespace std;
+
 TextureAtlasCreator::TextureAtlasCreator(){
 
 	state = IDLE;

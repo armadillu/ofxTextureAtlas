@@ -12,12 +12,12 @@
 #include "ofMain.h"
 #include "ofxRectangleUtils.h"
 
-const string atlasXmlRoot = "Atlas";
-const string atlasXmlProperties = "Properties";
-const string atlasXmlSize = "Size";
-const string atlasXmlNumTex = "NumTextures";
-const string atlasXmlInternalFormat = "internalFormat";
-const string atlasXmlTextureList = "TextureList";
+const std::string atlasXmlRoot = "Atlas";
+const std::string atlasXmlProperties = "Properties";
+const std::string atlasXmlSize = "Size";
+const std::string atlasXmlNumTex = "NumTextures";
+const std::string atlasXmlInternalFormat = "internalFormat";
+const std::string atlasXmlTextureList = "TextureList";
 
 class TextureAtlas : public ofThread {
 
@@ -35,7 +35,7 @@ class TextureAtlas : public ofThread {
 	ofFbo &getFbo() { return atlasFbo; }
 
 	/*return true if fits*/
-	bool addTexture(string file, // tex file
+	bool addTexture(std::string file, // tex file
 					float maxSize // biggest side, how big in atlas
 					);
 
@@ -45,9 +45,9 @@ class TextureAtlas : public ofThread {
 
 	void drawDebug(int x, int y);
 
-	void saveToDisk(string imageFileName, string xmlFileName);
+	void saveToDisk(std::string imageFileName, std::string xmlFileName);
 
-	bool startLoadingFromDisk(GLint internalFormat_, string imageFileName, string xmlFileName, bool mipmaps,
+	bool startLoadingFromDisk(GLint internalFormat_, std::string imageFileName, std::string xmlFileName, bool mipmaps,
 							  float mipmapBias);
 
 	ofEvent<TextureAtlas::AtlasLoadEventInfo> eventAtlasLoaded; // listen to this b4 startLoadingFromDisk()
@@ -59,11 +59,11 @@ class TextureAtlas : public ofThread {
 	void update(ofEventArgs &); // auto update
 	float getLoadXmlProgress() { return loadXmlProgress; }
 
-	const map<string, ofRectangle> &getTextureLocations() { return textureCrops; }
-	const vector<string> getFiles();
+	const std::map<std::string, ofRectangle> &getTextureLocations() { return textureCrops; }
+	const std::vector<std::string> getFiles();
 
   private:
-	map<string, ofRectangle> textureCrops;
+	std::map<std::string, ofRectangle> textureCrops;
 	ofRectanglePacker *packer;
 	ofFbo atlasFbo;
 
@@ -76,8 +76,8 @@ class TextureAtlas : public ofThread {
 	bool loadingAtlas;
 	bool xmlDataOK;
 	bool imgDataOK;
-	string xmlFileName;
-	string imageFileName;
+	std::string xmlFileName;
+	std::string imageFileName;
 	bool loadWithMipmaps;
 	float mipmapBias;
 	float loadXmlProgress;

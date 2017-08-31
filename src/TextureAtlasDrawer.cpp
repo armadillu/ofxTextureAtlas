@@ -9,6 +9,8 @@
 #include "TextureAtlasDrawer.h"
 #include "TextureAtlas.h"
 
+using namespace std;
+
 TextureAtlasDrawer::TextureAtlasDrawer(){
 
 	batching = false;

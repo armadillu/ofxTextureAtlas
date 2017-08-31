@@ -21,7 +21,7 @@ public:
 
 	TextureAtlasCreator();
 
-	void createAtlases(	vector<string> fileList,
+	void createAtlases(	std::vector<std::string> fileList,
 						int fboSize,
 					   	GLint internalFormat,
 					   	float maxItemSideSize,
@@ -30,10 +30,10 @@ public:
 					    float mipmapBias
 					   );
 
-	void saveToDisk(string directory, string imgFormat /*png | jpg*/);
+	void saveToDisk(std::string directory, std::string imgFormat /*png | jpg*/);
 	bool loadAtlasesFromDisk(GLint internalFormat,
-							 string directory,
-							 string imgFormat, /*png | jpg*/
+							 std::string directory,
+							 std::string imgFormat, /*png | jpg*/
 							 bool generateMipMaps,
 							 float mipmapBias);
 
@@ -52,10 +52,10 @@ public:
 	bool isSaving(){return state == SAVING;}
 
 	float getPercentDone(); //while creating OR loading
-	string getCurrentCreatingFileName(); //only while creating
+	std::string getCurrentCreatingFileName(); //only while creating
 	ofTexture * getCurrentlyCreatedAtlas(); //only while creating
 
-	vector<string> getAllImagePaths();
+	std::vector<std::string> getAllImagePaths();
 
 	ofEvent<bool> eventAtlasCreationFinished;
 	ofEvent<bool> eventAllAtlasesLoaded;
@@ -64,8 +64,8 @@ public:
 	void onAtlasLoaded(TextureAtlas::AtlasLoadEventInfo & info);
 
 	void update(ofEventArgs&); //dont call this
-	string getMemStats(); //call only when loaded / created
-	vector<string> getImageFileList(){return fileList;}
+	std::string getMemStats(); //call only when loaded / created
+	std::vector<std::string> getImageFileList(){return fileList;}
 
 private:
 
@@ -91,12 +91,12 @@ private:
 	TextureAtlas * currentAtlas;
 
 	vector<TextureAtlas*> atlases; //fbos
-	map<string, TextureAtlas*> fileToAtlas;
+	std::map<std::string, TextureAtlas*> fileToAtlas;
 
-	vector<string> fileList;
+	std::vector<std::string> fileList;
 	GLint internalFormat;
 
-	string bytesToHumanReadable(long long bytes, int decimalPrecision);
+	std::string bytesToHumanReadable(long long bytes, int decimalPrecision);
 };
 
 #endif /* defined(__BaseApp__TextureAtlasCreator__) */

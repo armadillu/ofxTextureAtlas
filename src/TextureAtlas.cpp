@@ -8,6 +8,7 @@
 
 #include "TextureAtlas.h"
 
+using namespace std;
 
 TextureAtlas::TextureAtlas(){
 
