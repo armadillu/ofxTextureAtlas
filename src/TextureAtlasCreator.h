@@ -30,10 +30,10 @@ public:
 					    float mipmapBias
 					   );
 
-	void saveToDisk(std::string directory, std::string imgFormat /*png | jpg*/);
+	void saveToDisk(std::string directory, std::string imgFormat /*png | jpg | jpeg*/);
 	bool loadAtlasesFromDisk(GLint internalFormat,
 							 std::string directory,
-							 std::string imgFormat, /*png | jpg*/
+							 std::string imgFormat, /*png | jpg | jpeg*/
 							 bool generateMipMaps,
 							 float mipmapBias);
 

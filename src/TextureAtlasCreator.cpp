@@ -279,13 +279,13 @@ bool TextureAtlasCreator::loadAtlasesFromDisk(GLint internalFormat,
 }
 
 
-void TextureAtlasCreator::saveToDisk(string directory, string imgFormat /*png | jpg*/){
+void TextureAtlasCreator::saveToDisk(string directory, string imgFormat /*png | jpg | jpeg*/){
 
 	if(state == IDLE){
 
 		state = SAVING;
-		if(imgFormat != "png" && imgFormat != "jpg" ){
-			ofLogError("TextureAtlasCreator") << "img format must be 'png' or 'jpg'";
+		if(imgFormat != "png" && imgFormat != "jpg" && imgFormat != "jpeg" ){
+			ofLogError("TextureAtlasCreator") << "img format must be 'png' or 'jpg' or 'jpeg'";
 		}
 
 		directory = ofFilePath::addTrailingSlash(directory);
