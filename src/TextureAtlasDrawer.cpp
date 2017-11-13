@@ -235,7 +235,7 @@ void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQua
 	addToMesh(mesh, quad, ti.crop);
 }
 
-void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQuad& quad, const ofFloatColor & col){
+void TextureAtlasDrawer::drawTextureInBatch(const string& filePath, const TexQuad& quad, const ofColor & col){
 
 	TextureInfo & ti = textures[filePath];
 	TextureAtlas* atlas = ti.atlas;

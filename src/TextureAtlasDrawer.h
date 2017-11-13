@@ -43,7 +43,7 @@ public:
 
 	void drawTextureInBatch(const std::string& filePath, const ofRectangle& where);
 	void drawTextureInBatch(const std::string& filePath, const TexQuad& quad);
-	void drawTextureInBatch(const std::string& filePath, const TexQuad& quad, const ofFloatColor& c);
+	void drawTextureInBatch(const std::string& filePath, const TexQuad& quad, const ofColor& c);
 
 	int endBatchDraw(bool debug = false); //returns the # of tiles drawn
 
