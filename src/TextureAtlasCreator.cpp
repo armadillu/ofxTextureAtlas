@@ -88,7 +88,7 @@ ofTexture * TextureAtlasCreator::getCurrentlyCreatedAtlas(){
 void TextureAtlasCreator::createAtlases(vector<string> fileList_,
 										int fboSize_,
 										GLint internalFormat_,
-										float maxItemSideSize_,
+										ofVec2f maxImageSize_,
 										float padding_,
 										bool generateMipMaps,
 										float mipmapBias_){
@@ -98,7 +98,7 @@ void TextureAtlasCreator::createAtlases(vector<string> fileList_,
 		ofAddListener(ofEvents().update, this, &TextureAtlasCreator::update);
 		fboSize = fboSize_;
 		internalFormat = internalFormat_;
-		maxItemSideSize = maxItemSideSize_;
+		maxItemSideSize = maxImageSize_;
 		padding = padding_;
 		makeMipMaps = generateMipMaps;
 		mipmapBias = mipmapBias_;

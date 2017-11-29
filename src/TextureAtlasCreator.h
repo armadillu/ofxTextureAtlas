@@ -24,7 +24,7 @@ public:
 	void createAtlases(	std::vector<std::string> fileList,
 						int fboSize,
 					   	GLint internalFormat,
-					   	float maxItemSideSize,
+					   	ofVec2f maxImageSize,
 					   	float padding,
 					    bool generateMipMaps,
 					    float mipmapBias
@@ -83,7 +83,7 @@ private:
 	int numImagesPerUpdate;
 	
 	int fboSize;
-	float maxItemSideSize;
+	ofVec2f maxItemSideSize;
 	float padding;
 	bool makeMipMaps;
 	float mipmapBias;

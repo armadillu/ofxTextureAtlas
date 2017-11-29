@@ -47,7 +47,7 @@ void TextureAtlas::setup(int rectSize, float padding, GLint internalFormat_){
 }
 
 
-bool TextureAtlas::addTexture(string file, float maxSize){
+bool TextureAtlas::addTexture(string file, ofVec2f maxSize){
 
 	if(isFull){
 		ofLogError("TextureAtlas") << "This Atlas is Full! Can't add more textures";
@@ -64,22 +64,24 @@ bool TextureAtlas::addTexture(string file, float maxSize){
 		ofRectangle rect;
 		rect.width = tex.getWidth();
 		rect.height = tex.getHeight();
+		
+		ofRectangle maxRect = ofRectangle(0,0,maxSize.x, maxSize.y);
 
 		if(rect.width > rect.height){
-			float scaleDown = maxSize / rect.width;
-			if (maxSize < rect.width){ //dont upscale
-				rect.width = maxSize;
+			float scaleDown = maxSize.x / rect.width;
+			if (maxSize.x < rect.width){ //dont upscale
+				rect.width = maxSize.x;
 				rect.height *= scaleDown;
 			}else{
-				ofLogNotice("TextureAtlas") << "not upscaling " << file;
+				ofLogNotice("TextureAtlas") << "not upscaling \"" << file << "\" [" << tex.getWidth() << " x " << tex.getHeight() << "]";
 			}
 		}else{
-			float scaleDown = maxSize / rect.height;
-			if(maxSize < rect.height){
-				rect.height = maxSize;
+			float scaleDown = maxSize.y / rect.height;
+			if(maxSize.y < rect.height){
+				rect.height = maxSize.y;
 				rect.width *= scaleDown;
 			}else{
-				ofLogNotice("TextureAtlas") << "not upscaling " << file;
+				ofLogNotice("TextureAtlas") << "not upscaling \"" << file << "\" [" << tex.getWidth() << " x " << tex.getHeight() << "]";
 			}
 		}
 		rect.width = ceil(rect.width);

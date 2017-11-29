@@ -36,7 +36,7 @@ class TextureAtlas : public ofThread {
 
 	/*return true if fits*/
 	bool addTexture(std::string file, // tex file
-					float maxSize // biggest side, how big in atlas
+					ofVec2f maxSize // biggest side, how big in atlas
 					);
 
 	void generateMipMap();
