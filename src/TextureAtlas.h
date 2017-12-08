@@ -12,14 +12,14 @@
 #include "ofMain.h"
 #include "ofxRectangleUtils.h"
 
-const std::string atlasXmlRoot = "Atlas";
-const std::string atlasXmlProperties = "Properties";
-const std::string atlasXmlSize = "Size";
-const std::string atlasXmlNumTex = "NumTextures";
-const std::string atlasXmlInternalFormat = "internalFormat";
-const std::string atlasXmlTextureList = "TextureList";
-
 class TextureAtlas : public ofThread {
+
+	const std::string atlasXmlRoot = "Atlas";
+	const std::string atlasXmlProperties = "Properties";
+	const std::string atlasXmlSize = "Size";
+	const std::string atlasXmlNumTex = "NumTextures";
+	const std::string atlasXmlInternalFormat = "internalFormat";
+	const std::string atlasXmlTextureList = "TextureList";
 
 	friend class TextureAtlasCreator;
 
