@@ -46,8 +46,8 @@ TextureAtlasDrawer::Quad TextureAtlasDrawer::toQuad(ofRectangle&r){
 
 void TextureAtlasDrawer::addContent(TextureAtlas* atlas){
 
-	map<string, ofRectangle> crops = atlas->getTextureLocations();
-	map<string, ofRectangle>::iterator it = crops.begin();
+	auto crops = atlas->getTextureLocations();
+	auto it = crops.begin();
 
 	float fboSize = atlas->getFbo().getWidth();
 	TextureInfo ti;

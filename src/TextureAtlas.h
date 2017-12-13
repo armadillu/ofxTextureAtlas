@@ -59,11 +59,11 @@ class TextureAtlas : public ofThread {
 	void update(ofEventArgs &); // auto update
 	float getLoadXmlProgress() { return loadXmlProgress; }
 
-	const std::map<std::string, ofRectangle> &getTextureLocations() { return textureCrops; }
+	const std::unordered_map<std::string, ofRectangle> &getTextureLocations() { return textureCrops; }
 	const std::vector<std::string> getFiles();
 
   private:
-	std::map<std::string, ofRectangle> textureCrops;
+	std::unordered_map<std::string, ofRectangle> textureCrops;
 	ofRectanglePacker *packer;
 	ofFbo atlasFbo;
 

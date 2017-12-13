@@ -138,7 +138,7 @@ void TextureAtlas::saveToDisk(string imageFileName, string xmlFileName){
 
 	ptr = xml.findFirst(atlasXmlRoot).appendChild(atlasXmlTextureList); //create 	<TextureList>
 
-	map<string, ofRectangle>::iterator it = textureCrops.begin();
+	auto it = textureCrops.begin();
 
 	while(it != textureCrops.end()){
 
@@ -281,7 +281,7 @@ void TextureAtlas::update(ofEventArgs&){
 const vector<string> TextureAtlas::getFiles(){
 
 	vector<string> files;
-	map<string, ofRectangle>::iterator it = textureCrops.begin();
+	auto it = textureCrops.begin();
 	while(it != textureCrops.end()){
 		files.push_back(it->first);
 		++it;
@@ -309,7 +309,7 @@ void TextureAtlas::drawDebug(int x, int y){
 	ofTranslate(x, y);
 	atlasFbo.draw(0,0);
 	ofNoFill();
-	map<string, ofRectangle>::iterator it = textureCrops.begin();
+	auto it = textureCrops.begin();
 	while(it != textureCrops.end()){
 		ofSetColor(ofRandom(255), ofRandom(255), ofRandom(255));
 		ofDrawRectangle(it->second);

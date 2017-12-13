@@ -64,8 +64,8 @@ vector<string> TextureAtlasCreator::getAllImagePaths(){
 	vector<string> list;
 	if (state == IDLE){
 		for(int i = 0; i < atlases.size(); i++){
-			map<string, ofRectangle> all = atlases[i]->getTextureLocations();
-			map<string, ofRectangle>::iterator it = all.begin();
+			auto all = atlases[i]->getTextureLocations();
+			auto it = all.begin();
 			while(it != all.end()){
 				list.push_back(it->first);
 				++it;
