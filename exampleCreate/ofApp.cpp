@@ -32,7 +32,7 @@ void ofApp::setup(){
 	atlasCreator.createAtlases(	fileList,
 							   	4096, 	//fbo/atlas size
 							   	GL_RGB, //internal format
-							   	400, //maxItemSideSize
+							   	ofVec2f(400,400), //maxItemSideSize
 								2.0,	//padding
 							    true, //mipmaps
 							   	-0.9 //mipmap bias
