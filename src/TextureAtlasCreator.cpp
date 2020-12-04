@@ -136,9 +136,11 @@ string TextureAtlasCreator::getMemStats(){
 			#endif
 				case GL_RGBA: bpp = 4; break;
 				case GL_RGB: bpp = 3; break;
+				#ifndef TARGET_OPENGLES
 				case GL_RGBA8: bpp = 4; break;
 				case GL_RGB8: bpp = 3; break;
 				case GL_LUMINANCE: bpp = 1; break;
+				#endif
 				default: ofLogError("TextureAtlasCreator") << "unknown glTypeInternal when gathering stats!";break;
 			}
 

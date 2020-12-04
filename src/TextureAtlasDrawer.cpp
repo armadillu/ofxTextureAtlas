@@ -105,7 +105,7 @@ void TextureAtlasDrawer::drawTexture(const string& filePath,
 TextureAtlasDrawer::TextureDimensions
 TextureAtlasDrawer::getTextureDimensions(const string& filePath){
 
-	TextureDimensions ti;
+	TextureDimensions ti = TextureDimensions();
 	map<string, TextureInfo>::iterator it = textures.find(filePath);
 	if(it != textures.end()){
 		return it->second.dim;

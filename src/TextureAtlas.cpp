@@ -115,9 +115,11 @@ void TextureAtlas::generateMipMap(){
 }
 
 void TextureAtlas::setMipMapBias(float bias){
+	#ifndef TARGET_OPENGLES
 	atlasFbo.getTexture().bind();
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_LOD_BIAS, bias);
 	atlasFbo.getTexture().unbind();
+	#endif
 }
 
 void TextureAtlas::saveToDisk(string imageFileName, string xmlFileName){
