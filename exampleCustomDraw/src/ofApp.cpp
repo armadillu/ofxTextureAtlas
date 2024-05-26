@@ -40,7 +40,10 @@ void ofApp::onAtlasesLoaded(bool &){
 	filesToDraw = atlasCreator.getAllImagePaths();
 
 	//shuffle them around for the debug view
-	std::random_shuffle(filesToDraw.begin(), filesToDraw.end());
+	//std::random_shuffle(filesToDraw.begin(), filesToDraw.end());
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(filesToDraw.begin(), filesToDraw.end(), g);
 }
 
 
